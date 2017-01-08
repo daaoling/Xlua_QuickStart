@@ -186,10 +186,13 @@ public class HotfixTest2 : MonoBehaviour {
         double r2 = calc.Test1<double>();
 
         Debug.Log("r1:" + r1 + ",r2:" + r2);
-
+        //r1:1,r2:1
         string ss = "heihei";
         int r3 = calc.Test2(r1, out r2, ref ss);
+        
         Debug.Log("r1:" + r1 + ",r2:" + r2 + ",r3:" + r3 + ",ss:" + ss);
+        //LUA: Test1	HotfixCalc: 941696000	1	heihei
+        //r1:1,r2:1024,r3:11,ss:heihei
 
         r3 = HotfixCalc.Test3("test3");
         r3 = HotfixCalc.Test3(2);

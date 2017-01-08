@@ -1,0 +1,27 @@
+print("test.lua")
+local MyClass = CS.MyClass
+local testobj = MyClass()
+table1 = {x = 1, y = 2}
+table2 = {x = 1, y = 2}
+testobj:ComplexFunc1(table1)
+testobj:ComplexFunc(table1,table2)
+print("table1.x", table1.x, "table1.y", table1.y)
+print("table2.x", table2.x, "table2.y", table2.y)
+
+function test(a)
+  print(" test ", a)
+end
+
+function test1(a)
+  print(" test1 ", a)
+end
+
+testobj:ComplexFunc2(test, test1)
+
+function action()
+end
+
+local a,a1,p1,csfunc = testobj:ComplexFunc3(1, {x = 1, y = 1}, 2, action);
+
+print(" testobj:ComplexFunc3 ", a, a1)
+csfunc()

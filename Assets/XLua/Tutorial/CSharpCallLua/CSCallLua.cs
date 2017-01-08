@@ -34,7 +34,7 @@ public class CSCallLua : MonoBehaviour {
 
         function f(a, b)
             print('a', a, 'b', b)
-            return 1, {f1 = 1024}
+            return 1, {f1 = 1024}, {f1 = 1025}
         end
         
         function ret_e()
@@ -58,7 +58,7 @@ public class CSCallLua : MonoBehaviour {
     }
 
     [CSharpCallLua]
-    public delegate int FDelegate(int a, string b, out DClass c);
+    public delegate int FDelegate(int a, string b, out DClass c, out DClass d);
 
     [CSharpCallLua]
     public delegate Action GetE();
@@ -97,8 +97,11 @@ public class CSCallLua : MonoBehaviour {
 
         FDelegate f = luaenv.Global.Get<FDelegate>("f");
         DClass d_ret;
-        int f_ret = f(100, "John", out d_ret);//lua的多返回值映射：从左往右映射到c#的输出参数，输出参数包括返回值，out参数，ref参数
-        Debug.Log("ret.d = {f1=" + d_ret.f1 + ", f2=" + d_ret.f2 + "}, ret=" + f_ret);
+        DClass d_ret1;
+        int f_ret = f(100, "John", out d_ret, out d_ret1);//lua的多返回值映射：从左往右映射到c#的输出参数，输出参数包括返回值，out参数，ref参数
+        Debug.Log("ret.d = {f1=" + d_ret.f1 + ", f2=" + d_ret.f2 + "},"
+                + "ret1.d = {f1=" + d_ret1.f1 + ", f2=" + d_ret1.f2 + "},"
+                + "ret=" + f_ret);
 
         GetE ret_e = luaenv.Global.Get<GetE>("ret_e");//delegate可以返回更复杂的类型，甚至是另外一个delegate
         e = ret_e();
@@ -106,9 +109,7 @@ public class CSCallLua : MonoBehaviour {
 
         LuaFunction d_e = luaenv.Global.Get<LuaFunction>("e");
         d_e.Call();
-
     }
-
     // Update is called once per frame
     void Update()
     {

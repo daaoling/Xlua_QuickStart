@@ -60,6 +60,9 @@ public class LuaBehaviour : MonoBehaviour {
         {
             luaAwake();
         }
+        else {
+            Debug.Log("this");
+        }
     }
 
 	// Use this for initialization
